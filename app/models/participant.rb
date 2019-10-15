@@ -5,20 +5,20 @@
 # Table name: participants
 #
 #  id               :bigint           not null, primary key
-#  new_id           :integer
+#  identifier       :integer
 #  participant_type :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  site             :string
+#  discarded_at     :datetime
 #
 
 class Participant < ApplicationRecord
-  has_many :interviews
+  include Discard::Model
+  has_many :interviews, foreign_key: :participant_identifier, primary_key: :identifier
   has_many :events, through: :interviews
 
-  validates :new_id, presence: true
-  validates :participant_type, presence: true, inclusion: { in: Rails.configuration.participant_types,
-                                                            message: '%{value} is not a valid participant type' }
-  validates :site, presence: true, inclusion: { in: Rails.configuration.sites,
-                                                message: '%{value} is not a valid residence type' }
+  validates :identifier, presence: true
+  validates :participant_type, presence: true
+  validates :site, presence: true
 end

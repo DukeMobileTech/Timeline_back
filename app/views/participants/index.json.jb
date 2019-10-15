@@ -1,0 +1,32 @@
+@participants.map {|participant|
+  { id: participant.id,
+    identifier: participant.identifier,
+    participant_type: participant.participant_type,
+    site: participant.site,
+    discarded_at: participant.discarded_at,
+    interviews: participant.interviews.map {|interview|
+      {
+        id: interview.id,
+        identifier: interview.identifier,
+        participant_identifier: interview.participant_identifier,
+        round: interview.round,
+        interview_date: interview.interview_date,
+        age: interview.age,
+        grade: interview.grade,
+        discarded_at: interview.discarded_at,
+      }
+    },
+    events: participant.events.map {|event|
+      {
+        id: event.id,
+        interview_identifier: event.interview_identifier,
+        participant_identifier: event.interview.participant_identifier,
+        title: event.title,
+        description: event.description,
+        time: event.time,
+        discarded_at: event.discarded_at,
+        uuid: event.uuid,
+      }
+    }
+  }
+}

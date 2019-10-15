@@ -2,6 +2,6 @@
 
 class ParticipantsController < ApplicationController
   def index
-    @participants = Participant.all.includes(:interviews, :events)
+    @participants = Participant.all.includes(:interviews, events: [:interview])
   end
 end

@@ -23,23 +23,8 @@ Bundler.require(*Rails.groups)
 
 module Timeline
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
+    config.autoload_paths += Dir[Rails.root.join('lib')]
     config.api_only = true
-
-    config.participant_types = ['RESIDENTIAL ORPHAN', 'COMMUNITY ORPHAN', 'NON ORPHAN']
-    config.residence_types = %w[FAMILY RESIDENTIAL]
-    config.sites = %w[CAMBODIA ETHIOPIA HYDERABAD KENYA NAGALAND TANZANIA]
-    config.event_types = %w[education moves abuse marriage wellbeing]
-    config.move_types = ['moved to community', 'moved to institution']
   end
 end
